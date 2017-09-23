@@ -6,41 +6,40 @@
 var stringifyJSON = function(obj) {
   // your code goes here
   if (obj === null) {
-  	return "".concat (obj);
-  } 
+  	return "" + obj;
+  }
   if (Array.isArray (obj)) {
-  	var massiveString = "[";
-  	for (var i = 0; i < obj.length; ++i) {
+  	var outputString = "[";
+  	for (var i = 0; i < obj.length; i++) {
   	  if (i !== 0) {
-  	    massiveString += ","; 
+  	    outputString += ","; 
   	  }
-  		massiveString += stringifyJSON(obj[i]); 
+  	    outputString += stringifyJSON(obj[i]); 
   	}
-  	massiveString += "]"; 
-  	return massiveString;
+  	outputString += "]"; 
+  	return outputString;
   }
   if (typeof obj === "object") {
-    var massiveString = "{";
+    outputString = "{";
   	for (var key in obj) {
-  	  if (massiveString !== "{") {
-  	    massiveString += ","; 
+  	  if (outputString !== "{") {
+  	    outputString += ","; 
   	  }
   	  var value = stringifyJSON(obj[key]);
-  	  if (value !== "") massiveString += stringifyJSON(key) + ':' + stringifyJSON(obj[key]); 
+  	  if (value !== "") {
+  	  	outputString += stringifyJSON(key) + ':' + stringifyJSON(obj[key]); 
+  	  }
   	}
-  	massiveString += "}"; 
-  	return massiveString;
+  	outputString += "}"; 
+  	return outputString;
   }
-  if (typeof obj === "") {
-  	return "".concat("\"", obj, "\"");
+  if (obj === "" || typeof obj === "string") {
+  	return "\"" + obj + "\"";
   }
   if (obj === undefined || typeof obj === "function") {
   	return "";
   }
-  if (typeof obj === "string") {
-    return "\"" + obj + "\""
-  }
   else {
-  	return "".concat (obj);
+  	return "" + obj;
   }
 };
