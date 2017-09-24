@@ -7,15 +7,13 @@
 var getElementsByClassName = function(className, node) {
   // your code here
   var output = [];
-  if (node === undefined) {
-  	node = document.body;
-  }
-  if (node.classList.contains(className)) {
+  node = node || document.body;
+  if (node.classList && node.classList.contains(className)) {
   	output.push(node);
   }
-  if (node.children) {
-    for (var i = 0; i < node.children.length; i++) {
-      output = output.concat(getElementsByClassName(className, node.children[i]));
+  if (node.childNodes) {
+    for (var i = 0; i < node.childNodes.length; i++) {
+      output = output.concat(getElementsByClassName(className, node.childNodes[i]));
     }
   }
   return output;
