@@ -5,37 +5,30 @@
 
 var stringifyJSON = function(obj) {
   // your code goes here
-  // if (obj === null) {
-  // 	//return "" + obj + "";
-  //   return "null";
-  // }
   if (Array.isArray (obj)) {
-  	//var outputString = "[";
-    var outputString = "";
+  	var outputString = "[";
   	for (var i = 0; i < obj.length; i++) {
   	  if (i !== 0) {
   	    outputString += ","; 
   	  }
   	    outputString += stringifyJSON(obj[i]); 
   	}
-  	//outputString += "]"; 
-    outputString = "[" + outputString + "]";
+  	outputString += "]"; 
   	return outputString;
   }
   if (typeof obj === "object") {
     if (obj === null) {
-      //return "" + obj + "";
-      return "null";
+      return "" + obj + "";
     }
     outputString = "{";
   	for (var key in obj) {
+      if (obj[key] === undefined || typeof obj[key] === "function") {
+        return '{}';
+      }
   	  if (outputString !== "{") {
   	    outputString += ","; 
   	  }
-  	  var value = stringifyJSON(obj[key]);
-  	  if (value !== "") {
-  	  	outputString += stringifyJSON(key) + ':' + stringifyJSON(obj[key]); 
-  	  }
+  	  outputString += stringifyJSON(key) + ':' + stringifyJSON(obj[key]); 
   	}
   	outputString += "}"; 
   	return outputString;
@@ -44,7 +37,7 @@ var stringifyJSON = function(obj) {
   	return "\"" + obj + "\"";
   }
   if (obj === undefined || typeof obj === "function") {
-  	return "";
+  	return;
   }
   else {
   	return "" + obj + "";
