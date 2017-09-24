@@ -18,7 +18,7 @@ var stringifyJSON = function(obj) {
   }
   if (typeof obj === "object") {
     if (obj === null) {
-      return "" + obj + "";
+      return "" + obj;
     }
     outputString = "{";
   	for (var key in obj) {
@@ -40,6 +40,6 @@ var stringifyJSON = function(obj) {
   	return;
   }
   else {
-  	return "" + obj + "";
+  	return "" + obj;
   }
 };
